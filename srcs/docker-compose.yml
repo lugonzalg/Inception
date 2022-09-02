@@ -1,7 +1,11 @@
 version: "3"
 services:
-        nginx:
-                image: nginx
-                ports:
-                        - "443:443"
-                restart: always
+  nginx:
+    image: nginx
+    ports:
+      - "443:443"
+    restart: always
+  wordpress:
+    image: wordpress
+  mariadb:
+    image: mariadb
