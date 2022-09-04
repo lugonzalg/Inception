@@ -16,7 +16,7 @@ word:
 	docker run -it --rm --name wordIM $(WORD)
 
 run:
-	docker run -d --rm --name nginxIM $(NGINX)
+	docker run -d --rm --name nginxIM -p 443:443 -p 80:80 $(NGINX)
 	docker run -d --rm --name wordIM $(WORD)
 	docker run -d --rm --name mariaIM $(DB)
 
