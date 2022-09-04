@@ -5,9 +5,16 @@ services:
     ports:
       - "443:443"
     restart: always
+    networks:
+      mynetwork:
+        ipv4_address: "10.56.1.21"
   wordpress:
     image: wordpress
     restart: always
   mariadb:
     image: mariadb
     restart: always
+networks:
+  mynetwork:
+    ipam:
+      driver: default
