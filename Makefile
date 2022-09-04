@@ -21,9 +21,9 @@ run:
 	docker run -d --rm --name mariaIM $(DB)
 
 kill:
-	docker kill $(NGNIX)
-	docker kill $(WORD)
-	docker kill $(DB)
+	docker kill nginxIM
+	docker kill wordIM
+	docker kill mariaIM
 
 fclean: clean
 	docker rmi $(NGINX)
