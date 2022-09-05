@@ -7,14 +7,14 @@ services:
     restart: always
     networks:
       mynetwork:
-        ipv4_address: "10.56.1.21"
+              #ipv4_address: "10.56.1.21"
   wordpress:
     image: wordpress
-    restart: always
+    #restart: never
   mariadb:
     image: mariadb
-    restart: always
+    #restart: never
 networks:
   mynetwork:
-    ipam:
-      driver: default
+    driver: bridge
+    #ipam:
