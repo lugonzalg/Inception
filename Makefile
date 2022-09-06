@@ -4,10 +4,8 @@ DB 	= "mariadb"
 
 .PHONY: build nginx clean fclean kill re
 
-build:
-	docker build ./srcs/requirements/nginx -t $(NGINX)
-	docker build ./srcs/requirements/wordpress -t $(WORD)
-	docker build ./srcs/requirements/mariadb -t $(DB)
+all:
+	docker-compose up -d
 
 nginx:
 	docker run -it --rm --name nginxIM -p 80:80 -p 443:443 $(NGINX)
@@ -15,15 +13,8 @@ nginx:
 word:
 	docker run -it --rm --name wordIM $(WORD)
 
-run:
-	docker run -d --rm --name nginxIM -p 443:443 -p 80:80 $(NGINX)
-	docker run -d --rm --name wordIM $(WORD)
-	docker run -d --rm --name mariaIM $(DB)
-
 kill:
-	docker kill nginxIM
-	docker kill wordIM
-	docker kill mariaIM
+	docker-compose down
 
 fclean: clean
 	docker rmi $(NGINX)
