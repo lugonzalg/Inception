@@ -5,6 +5,50 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
+
+$set = <<-SCRIPT
+echo "              __                    
+.-----.-----.|  |_     .--.--.-----.
+|__ --|  -__||   _|    |  |  |  _  |
+|_____|_____||____|    |_____|   __|
+                             |__|   "
+sudo apt-get update
+sudo apt-get install -y make git vim zsh 
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+SCRIPT
+
+$docker = <<-SCRIPT
+echo "    __              __               
+.--|  |.-----.----.|  |--.-----.----.
+|  _  ||  _  |  __||    <|  -__|   _|
+|_____||_____|____||__|__|_____|__|  
+                                     "
+                                     
+curl -fsSL https://get.docker.com -o get-docker.sh
+DRY_RUN=1 sh ./get-docker.sh
+sh get-docker.sh
+
+echo "    __              __                                                                  
+.--|  |.-----.----.|  |--.-----.----.______.----.-----.--------.-----.-----.-----.-----.
+|  _  ||  _  |  __||    <|  -__|   _|______|  __|  _  |        |  _  |  _  |__ --|  -__|
+|_____||_____|____||__|__|_____|__|        |____|_____|__|__|__|   __|_____|_____|_____|
+                                                               |__|                     "
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+SCRIPT
+
+$user = <<-SCRIPT
+echo "                        
+.--.--.-----.-----.----.
+|  |  |__ --|  -__|   _|
+|_____|_____|_____|__|  
+                        "
+sudo useradd -m -s /bin/zsh -G docker,sudo lukas
+echo "vagrant" | sudo passwd lukas --stdin
+SCRIPT
+
 Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
@@ -14,7 +58,6 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "bento/ubuntu-18.04"
 
-  config.ssh.username = "lukas"
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -60,7 +103,13 @@ Vagrant.configure("2") do |config|
   #
   # View the documentation for the provider you are using for more
   # information on available options.
+  #
 
+  config.vm.provision "shell", inline: $set 
+  config.vm.provision "shell", inline: $docker 
+  config.vm.provision "shell", inline: $user 
+
+  #config.ssh.username = "lukas"
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.

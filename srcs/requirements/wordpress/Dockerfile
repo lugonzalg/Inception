@@ -1,6 +1,6 @@
 FROM alpine:3.16
 
-RUN apk add php8-fpm
+RUN apk update && apk add php8-fpm
 
 #INSTALL WORDPRESS 
 RUN mkdir -p /usr/share/webapps/
