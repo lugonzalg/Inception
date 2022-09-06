@@ -1,9 +1,10 @@
-version: "3"
+version: "3.9"
 services:
   nginx:
     image: nginx
     ports:
       - "443:443"
+      - "80:80"
     restart: always
     networks:
       mynetwork:
@@ -16,5 +17,6 @@ services:
     #restart: never
 networks:
   mynetwork:
-    driver: bridge
+          #external: true
+          #driver: bridge
     #ipam:
