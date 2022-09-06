@@ -13,9 +13,8 @@ echo "              __
 |_____|_____||____|    |_____|   __|
                              |__|   "
 sudo apt-get update
-sudo apt-get install -y make git vim zsh 
+sudo apt-get install -y make git vim clang gcc gdb valgrind xorg libxext-dev zlib1g-dev libbsd-dev
 
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 SCRIPT
 
 $docker = <<-SCRIPT
@@ -45,8 +44,8 @@ echo "
 |  |  |__ --|  -__|   _|
 |_____|_____|_____|__|  
                         "
-sudo useradd -m -s /bin/zsh -G docker,sudo lukas
-echo "vagrant" | sudo passwd lukas --stdin
+sudo useradd -m -s /bin/bash -G docker,sudo lukas
+echo "lukas:vagrant" | chpasswd
 SCRIPT
 
 Vagrant.configure("2") do |config|
@@ -58,6 +57,7 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "bento/ubuntu-18.04"
 
+  config.ssh.username = "lukas"
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -109,7 +109,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: $docker 
   config.vm.provision "shell", inline: $user 
 
-  #config.ssh.username = "lukas"
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
