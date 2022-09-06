@@ -1,3 +1,3 @@
 FROM alpine:3.16
 
-RUN apk add mysql mysql-client
+RUN apk update && apk add mysql mysql-client

@@ -2,28 +2,31 @@ NGINX 	= "nginx"
 WORD 	= "wordpress"
 DB 	= "mariadb"
 
-.PHONY: build nginx clean fclean kill re
+.PHONY: all clean down fclean nginx re word
+
+all:
+	docker-compose -f ./srcs/docker-compose.yml up -d
 
 build:
-	docker build ./srcs/requirements/nginx -t $(NGINX)
-	docker build ./srcs/requirements/wordpress -t $(WORD)
-	docker build ./srcs/requirements/mariadb -t $(DB)
+	docker-compose -f ./srcs/docker-compose.yml up --build -d
+
+edit:
+	vim srcs/docker-compose.yml
+
+ps:
+	docker-compose -f ./srcs/docker-compose.yml ps
 
 nginx:
-	docker run -it --rm --name nginxIM -p 80:80 -p 443:443 $(NGINX)
+	docker exec -it srcs_nginx_1 /bin/sh
 
 word:
-	docker run -it --rm --name wordIM $(WORD)
+	docker run -it --rm --name $(WORD)IM $(WORD) /bin/sh
 
-run:
-	docker run -d --rm --name nginxIM -p 443:443 -p 80:80 $(NGINX)
-	docker run -d --rm --name wordIM $(WORD)
-	docker run -d --rm --name mariaIM $(DB)
+db:
+	docker run -it --rm --name $(DB)IM $(DB) /bin/sh
 
-kill:
-	docker kill nginxIM
-	docker kill wordIM
-	docker kill mariaIM
+down:
+	docker-compose -f ./srcs/docker-compose.yml down
 
 fclean: clean
 	docker rmi $(NGINX)

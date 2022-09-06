@@ -1,22 +1,31 @@
-version: "3.9"
+version: "3.8"
 services:
   nginx:
+    depends_on:
+      - wordpress
+    build: ./requirements/nginx
     image: nginx
     ports:
       - "443:443"
-      - "80:80"
     restart: always
-    networks:
-      mynetwork:
+    #networks:
+    #  mynetwork:
               #ipv4_address: "10.56.1.21"
   wordpress:
+    depends_on:
+      - mariadb
+    build: ./requirements/wordpress
     image: wordpress
-    #restart: never
+    expose:
+      - 9000
+    #restart: always
   mariadb:
+    build: ./requirements/mariadb
     image: mariadb
-    #restart: never
+    expose:
+      - 3306
+    #restart: always
 networks:
   mynetwork:
-          #external: true
-          #driver: bridge
+          driver: bridge
     #ipam:

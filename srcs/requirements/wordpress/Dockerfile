@@ -8,3 +8,5 @@ RUN wget http://wordpress.org/latest.tar.gz
 RUN tar -xzvf latest.tar.gz
 RUN rm latest.tar.gz
 RUN mv wordpress /usr/share/webapps/
+
+CMD php-fpm8 -F
