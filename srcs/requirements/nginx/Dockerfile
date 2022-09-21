@@ -1,8 +1,9 @@
 FROM alpine:3.16
 
-RUN apk update && apk add nginx
+RUN apk update && apk add nginx \
+	vim
 
-COPY ./tools/nginx.conf /etc/nginx/.
+#COPY ./tools/nginx.conf /etc/nginx/.
 
 RUN nginx -g 'pid /run/nginx/nginx.pid;'
 
