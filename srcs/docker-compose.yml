@@ -9,7 +9,7 @@ services:
       - "443:443"
     restart: always
     #networks:
-    #  mynetwork:
+    #mynetwork:
               #ipv4_address: "10.56.1.21"
   wordpress:
     depends_on:
@@ -25,7 +25,7 @@ services:
     expose:
       - 3306
     #restart: always
-networks:
-  mynetwork:
-          driver: bridge
+    #networks:
+    #mynetwork:
+          #driver: bridge
     #ipam:
