@@ -2,31 +2,39 @@ NGINX 	= "nginx"
 WORD 	= "wordpress"
 DB 	= "mariadb"
 
+COMPOSE=docker-compose -f ./srcs/docker-compose.yml 
+
 .PHONY: all clean down fclean nginx re word
 
 all:
-	docker-compose -f ./srcs/docker-compose.yml up -d
+	$(COMPOSE) up -d
 
 build:
-	docker-compose -f ./srcs/docker-compose.yml up --build -d
+	$(COMPOSE) up --build -d
 
 edit:
 	vim srcs/docker-compose.yml
 
 ps:
-	docker-compose -f ./srcs/docker-compose.yml ps
+	$(COMPOSE) ps
 
 nginx:
-	docker exec -it srcs_nginx_1 /bin/sh
+	$(COMPOSE) exec $(NGINX) /bin/sh
+	#docker exec -it srcs_nginx_1 /bin/sh
 
 word:
-	docker run -it --rm --name $(WORD)IM $(WORD) /bin/sh
+	$(COMPOSE) exec $(WORD) /bin/sh
+	#docker run -it --rm --name $(WORD)IM $(WORD) /bin/sh
 
 db:
-	docker run -it --rm --name $(DB)IM $(DB) /bin/sh
+	$(COMPOSE) exec $(DB) /bin/sh
+	#docker run -it --rm --name $(DB)IM $(DB) /bin/sh
 
 down:
-	docker-compose -f ./srcs/docker-compose.yml down
+	$(COMPOSE) down
+
+logs:
+	$(COMPOSE) logs
 
 fclean: clean
 	docker rmi $(NGINX)

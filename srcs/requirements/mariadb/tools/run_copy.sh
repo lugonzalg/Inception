@@ -17,7 +17,7 @@ else
 	mysql_install_db --user=mysql --ldata=/var/lib/mysql > /dev/null
 
 	if [ "$MYSQL_ROOT_PASSWORD" = "" ]; then
-		MYSQL_ROOT_PASSWORD=pwgen 16 1
+		MYSQL_ROOT_PASSWORD=$(pwgen 16 1)
 		echo "MYSQL CREATING ROOT PASSWORD $MYSQL_ROOT_PASSWORD"
 	fi
 
@@ -28,7 +28,7 @@ else
 
 	MYSQL_DATABASE="inception"
 	MYSQL_USER="lukas"
-	MYSQL_PASSWORD=pwgen 16 1
+	MYSQL_PASSWORD=$(pwgen 16 1)
 
 	#CREATE TEMPORAL FILE
 	tmp_file=mktemp
