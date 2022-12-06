@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+        nginx:
+                build: requirements/nginx
+                container_name: nginx
+                ports:
+                  - "443:443"
+                expose:
+                  - 9000
+                volumes:
+                        - /data/www
+                        - /data/images
