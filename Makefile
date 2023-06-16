@@ -1,6 +1,6 @@
 COMPOSE=docker compose -f srcs/docker-compose.yml
 
-.PHONY: all build follow logs ps
+.PHONY: all build down follow logs ps
 
 all:
 	$(COMPOSE) up -d

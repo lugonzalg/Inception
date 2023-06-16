@@ -20,6 +20,9 @@ RUN apk add --no-cache \
     php-gd
 
 RUN wget https://wordpress.org/latest.tar.gz \
-    tar -xzf latest.tar.gz \
-    mv wordpress /var/www/html/ \
+    && tar -xzf latest.tar.gz \
+    && chown -R root:root ./wordpress \
     && rm latest.tar.gz
+
+COPY ./config/wp-config.php ./wordpress
+COPY ./tools/init.sh .

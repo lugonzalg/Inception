@@ -5,17 +5,20 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-
     volumes:
-      - $HOME/data:/var/lib/mysql
+      - /home/lukas/data/mariadb:/var/lib/mysql
       - /requirements/mariadb/log:/log/mariadb
 
-    expose:
-      - 3306
     environment:
         - MYSQL_USER
         - MYSQL_PASSWORD
         - MYSQL_DATABASE
+
+    expose:
+      - 3306
+    networks:
+      - inception
+
     entrypoint: tmp/init.sh
 
   nginx:
@@ -23,9 +26,13 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
+    volumes:
+      - /home/lukas/data/wordpress:/var/www/html
 
     expose:
       - 443
+    networks:
+      - inception
 
     entrypoint: nginx -g "daemon off;"
 
@@ -34,8 +41,35 @@ services:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
+    volumes:
+        - /home/lukas/data/:/var/www/html
+
+    environment:
+        - MYSQL_USER
+        - MYSQL_PASSWORD
+        - MYSQL_DATABASE
 
     expose:
       - 9000
+    networks:
+      - inception
 
-    entrypoint: tail -f
+    entrypoint: ./init.sh
+
+networks:
+        inception:
+                name: inception
+                driver: bridge
+
+                #volumes:
+                #        v_wordpress:
+                #                driver: local
+                #                driver_opts:
+                #                        type: none
+                #                        device: /home/lukas/data/wordpress
+
+                #        v_mariadb:
+                #                driver: local
+                #                driver_opts:
+                #                        type: none
+                #                        device: /home/lukas/data/mariadb
