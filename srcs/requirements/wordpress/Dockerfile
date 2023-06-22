@@ -24,5 +24,9 @@ RUN wget https://wordpress.org/latest.tar.gz \
     && chown -R root:root ./wordpress \
     && rm latest.tar.gz
 
-COPY ./config/wp-config.php ./wordpress
+RUN adduser -D -H -s /bin/false www-data -G www-data
+
+COPY ./conf/wp-config.php ./wordpress
 COPY ./tools/init.sh .
+COPY ./conf/www.conf /etc/php81/php-fpm.d/
+COPY ./conf/php.ini /etc/php81/php.ini

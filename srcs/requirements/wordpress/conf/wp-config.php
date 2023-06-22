@@ -1,4 +1,9 @@
 <?php
+//SITE URL
+define( 'WP_HOME', getenv('WORDPRESS_DOMAIN') );
+define( 'WP_SITEURL', getenv('WORDPRESS_DOMAIN') );
+
+
 /**
  * The base configuration for WordPress
  *

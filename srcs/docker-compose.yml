@@ -29,8 +29,8 @@ services:
     volumes:
       - /home/lukas/data/wordpress:/var/www/html
 
-    expose:
-      - 443
+    ports:
+      - 443:443
     networks:
       - inception
 
@@ -42,12 +42,13 @@ services:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     volumes:
-        - /home/lukas/data/:/var/www/html
+        - /home/lukas/data/wordpress:/var/www/html/wordpress
 
     environment:
         - MYSQL_USER
         - MYSQL_PASSWORD
         - MYSQL_DATABASE
+        - WORDPRESS_DOMAIN
 
     expose:
       - 9000
@@ -61,6 +62,7 @@ networks:
                 name: inception
                 driver: bridge
 
+                  #TODO learn how it works!!
                 #volumes:
                 #        v_wordpress:
                 #                driver: local
