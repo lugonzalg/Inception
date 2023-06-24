@@ -1,19 +1,13 @@
 #!/bin/sh
 
-if ! [ -d /var/www ]; then
-	mkdir -p /var/www
+mv ./wordpress /var/www/html
+if [ $? -ne 0 ];then
+	echo "This host already has a wordpress project!"
+	rm -rf ./wordpress
+else
+	echo "New Wordpress project initialiced"
 fi
 
-if ! [ -d /var/www/html ]; then
-	mkdir -p /var/www/html
-fi
-
-if [ -d ./wordpress ]; then
-	mv ./wordpress/wp-admin /var/www/html
-	mv ./wordpress/wp-content /var/www/html
-	mv ./wordpress/wp-includes /var/www/html
-	mv ./wordpress/* /var/www/html
-	rmdir ./wordpress
-fi
+chown -R www-data:www-data /var/www
 
 exec php-fpm81 --nodaemonize

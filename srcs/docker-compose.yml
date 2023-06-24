@@ -6,7 +6,7 @@ services:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
     volumes:
-      - /Users/lugonzal/data/mariadb:/var/lib/mysql
+      - /home/lukas/data/mariadb:/var/lib/mysql
       - ./requirements/mariadb/log:/log/mariadb
 
     environment:
@@ -27,7 +27,7 @@ services:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     volumes:
-      - /Users/lugonzal/data/wordpress:/var/www/html
+      - /home/lukas/data/wordpress:/var/www/html
 
     ports:
       - 443:443
@@ -42,7 +42,7 @@ services:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     volumes:
-        - /Users/lugonzal/data/wordpress:/var/www/html/wordpress
+        - /home/lukas/data/wordpress:/var/www/html
 
     environment:
         - MYSQL_USER
@@ -61,17 +61,3 @@ networks:
         inception:
                 name: inception
                 driver: bridge
-
-                  #TODO learn how it works!!
-                #volumes:
-                #        v_wordpress:
-                #                driver: local
-                #                driver_opts:
-                #                        type: none
-                #                        device: /home/lukas/data/wordpress
-
-                #        v_mariadb:
-                #                driver: local
-                #                driver_opts:
-                #                        type: none
-                #                        device: /home/lukas/data/mariadb

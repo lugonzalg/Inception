@@ -19,12 +19,11 @@ RUN apk add --no-cache \
     php-mbstring \
     php-gd
 
-RUN wget https://wordpress.org/latest.tar.gz \
-    && tar -xzf latest.tar.gz \
-    && chown -R root:root ./wordpress \
-    && rm latest.tar.gz
-
 RUN adduser -D -H -s /bin/false www-data -G www-data
+
+RUN wget https://wordpress.org/latest.tar.gz \
+	&& tar -xzf latest.tar.gz \
+	&& rm latest.tar.gz
 
 COPY ./conf/wp-config.php ./wordpress
 COPY ./tools/init.sh .

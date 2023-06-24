@@ -3,7 +3,6 @@
 define( 'WP_HOME', getenv('WORDPRESS_DOMAIN') );
 define( 'WP_SITEURL', getenv('WORDPRESS_DOMAIN') );
 
-
 /**
  * The base configuration for WordPress
  *
@@ -53,15 +52,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-define( 'NONCE_KEY',        'put your unique phrase here' );
-define( 'AUTH_SALT',        'put your unique phrase here' );
-define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-define( 'NONCE_SALT',       'put your unique phrase here' );
-
+define('AUTH_KEY',         'F3exk2qs}PFER-#a_&d~I|vKKuoLau{t`<.QA9z6[*-.`u^knq&QcCEm+Dqz8d})');
+define('SECURE_AUTH_KEY',  'vWm1-+ ZfGO|U}q=Sy9>T~c)S(lEcL2zO|9oOL:6t]hrkJ-g15nN@3WoVq-y:sKs');
+define('LOGGED_IN_KEY',    'VtwH.t&wl0_CC,xn)n7y)xJN)|wjQObodr+cqWa5t|r#B+LJb(|^i)7~C$Y^h)fW');
+define('NONCE_KEY',        'jxg)|+^}vEpdB 8 HwHYWD:e>S<iHiI@gfOYLkal}/Y@#T&WuVxjxPr $VtJGM:m');
+define('AUTH_SALT',        'B+1LmN+^*C.xSSKfy`c6Hb*dO{-p`C-VLE+Ipr[oSJL2b4`te-_c:ve<-+Dy#]Dh');
+define('SECURE_AUTH_SALT', 'lGgANSd.__%Qb]|g}l4f@={=-M+$bh8^FW?#g+h3q+hIR&V :1`D7NV(S-=-VA?u');
+define('LOGGED_IN_SALT',   '+8<Dx!s<L^HSBP/cBVL=Z;030rD|f0G2kO+_dFQoEuUM+i^Y 5HRvhrf`Xr)2JlZ');
+define('NONCE_SALT',       '_p$X]nF!1LbkCxgT#/`gSt$N5hn;k18`CY{/NpoH+>T7UE5v|S:#_7:i5VF~h^%S');
 /**#@-*/
 
 /**

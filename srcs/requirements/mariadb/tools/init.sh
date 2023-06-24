@@ -4,8 +4,6 @@ mariadb-install-db --user=mysql --verbose --ldata=/var/lib/mysql
 
 exec mysqld_safe --user=mysql --log-error=/log/mariadb/err.log &
 
-MYQSL_PID=$!
-
 while ! mysqladmin ping >/dev/null 2>&1; do
 	sleep 1
 done
@@ -23,4 +21,4 @@ mysql -u root -pmyadmin_password <<-EOSQL
     FLUSH PRIVILEGES;
 EOSQL
 
-wait $MYQSL_PID
+exec /usr/bin/mysqld --user=mysql --log-error=/log/mariadb/err.log --console --skip-name-resolve --skip-networking=0 $@
