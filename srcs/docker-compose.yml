@@ -6,8 +6,8 @@ services:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
     volumes:
-      - /home/lukas/data/mariadb:/var/lib/mysql
-      - /requirements/mariadb/log:/log/mariadb
+      - /Users/lugonzal/data/mariadb:/var/lib/mysql
+      - ./requirements/mariadb/log:/log/mariadb
 
     environment:
         - MYSQL_USER
@@ -27,7 +27,7 @@ services:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     volumes:
-      - /home/lukas/data/wordpress:/var/www/html
+      - /Users/lugonzal/data/wordpress:/var/www/html
 
     ports:
       - 443:443
@@ -42,7 +42,7 @@ services:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     volumes:
-        - /home/lukas/data/wordpress:/var/www/html/wordpress
+        - /Users/lugonzal/data/wordpress:/var/www/html/wordpress
 
     environment:
         - MYSQL_USER

@@ -1,6 +1,7 @@
 COMPOSE=docker compose -f srcs/docker-compose.yml
 MKDIR=mkdir -p
 RM=rm -rf
+HOME=/Users/lugonzal
 
 .PHONY: all build down follow logs ps clean
 
