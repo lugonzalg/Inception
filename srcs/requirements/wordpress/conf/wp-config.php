@@ -1,7 +1,7 @@
 <?php
 //SITE URL
-define( 'WP_HOME', getenv('WORDPRESS_DOMAIN') );
-define( 'WP_SITEURL', getenv('WORDPRESS_DOMAIN') );
+//define( 'WP_HOME', getenv('WORDPRESS_DOMAIN'));
+//define( 'WP_SITEURL', getenv('WORDPRESS_DOMAIN'));
 
 /**
  * The base configuration for WordPress
@@ -25,16 +25,16 @@ define( 'WP_SITEURL', getenv('WORDPRESS_DOMAIN') );
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 
-define( 'DB_NAME', getenv('MYSQL_DATABASE') );
+define( 'DB_NAME', 'inception');
 
 /** Database username */
-define( 'DB_USER', getenv('MYSQL_USER') );
+define( 'DB_USER', 'lugonzal');
 
 /** Database password */
-define( 'DB_PASSWORD', getenv('MYSQL_PASSWORD') );
+define( 'DB_PASSWORD', 'Urduliz_42');
 
 /** Database hostname */
-define( 'DB_HOST', 'db' );
+define( 'DB_HOST', 'db');
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );

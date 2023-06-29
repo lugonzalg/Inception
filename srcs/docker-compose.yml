@@ -14,6 +14,7 @@ services:
         - MYSQL_PASSWORD
         - MYSQL_DATABASE
         - WORDPRESS_HOST
+        - MYSQL_ROOT_PASSWORD
 
     expose:
       - 3306
@@ -34,6 +35,8 @@ services:
       - 443:443
     networks:
       - inception
+    depends_on:
+      - wordpress
 
     entrypoint: nginx -g "daemon off;"
 
@@ -55,6 +58,8 @@ services:
       - 9000
     networks:
       - inception
+    depends_on:
+      - db
 
     entrypoint: ./init.sh
 
