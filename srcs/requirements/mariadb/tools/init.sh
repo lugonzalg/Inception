@@ -26,15 +26,14 @@ else
 
 	cat << EOF > $tmp_file
 	CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
-	CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';
+	CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'$WORDPRESS_HOST' IDENTIFIED BY '${MYSQL_PASSWORD}';
 	GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'localhost';
 	FLUSH PRIVILEGES;
 EOF
 
 	/usr/bin/mysqld --user=mysql --bootstrap --skip-name-resolve --skip-networking=0 < $tfile
+	rm -rf $tfile
 
 fi
-
-/usr/bin/mysqld --user=mysql --skip-name-resolve --skip-networking=0 --silent-startup &
 
 exec /usr/bin/mysqld --user=mysql --log-error=/log/mariadb/err.log --console --skip-name-resolve --skip-networking=0 $@

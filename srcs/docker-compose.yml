@@ -13,6 +13,7 @@ services:
         - MYSQL_USER
         - MYSQL_PASSWORD
         - MYSQL_DATABASE
+        - WORDPRESS_HOST
 
     expose:
       - 3306
