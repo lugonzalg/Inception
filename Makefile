@@ -2,10 +2,10 @@ COMPOSE=docker compose -f srcs/docker-compose.yml
 MKDIR=mkdir -p
 RM=rm -rf
 
-.PHONY: all build down follow logs ps clean
+.PHONY: all build clean down follow logs ps re rebuild restart
 
 all:
-	$(COMPOSE) up -d
+	$(COMPOSE) up -d mariadb wordpress nginx
 
 down:
 	$(COMPOSE) down
@@ -34,3 +34,9 @@ edit:
 
 clean:
 	sudo $(RM) $(HOME)/data
+
+re: down clean build all follow
+
+rebuild: down refresh all follow
+
+restart: down all follow
