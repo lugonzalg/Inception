@@ -1,7 +1,7 @@
 services:
 
-  db:
-    container_name: db
+  mariadb:
+    container_name: mariadb
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
@@ -59,7 +59,7 @@ services:
     networks:
       - inception
     depends_on:
-      - db
+      - mariadb
       - redis
 
     entrypoint: ./init.sh
