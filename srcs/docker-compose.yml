@@ -60,8 +60,24 @@ services:
       - inception
     depends_on:
       - db
+      - redis
 
     entrypoint: ./init.sh
+
+  redis:
+    container_name: redis
+    build:
+      context: ./requirements/redis
+      dockerfile: Dockerfile
+    volumes:
+      - /home/lukas/data/redis:/data
+
+    networks:
+      - inception
+    expose:
+      - 6379
+
+    entrypoint: redis-server
 
 networks:
         inception:

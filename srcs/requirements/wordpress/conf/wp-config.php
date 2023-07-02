@@ -3,6 +3,11 @@
 //define( 'WP_HOME', getenv('WORDPRESS_DOMAIN'));
 //define( 'WP_SITEURL', getenv('WORDPRESS_DOMAIN'));
 
+//REDIS
+
+define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', 6379);
+
 /**
  * The base configuration for WordPress
  *

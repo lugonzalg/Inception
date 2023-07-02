@@ -14,6 +14,7 @@ build:
 	$(MKDIR) $(HOME)/data
 	$(MKDIR) $(HOME)/data/mariadb
 	$(MKDIR) $(HOME)/data/wordpress
+	$(MKDIR) $(HOME)/data/redis
 	$(COMPOSE) build --no-cache
 
 refresh:

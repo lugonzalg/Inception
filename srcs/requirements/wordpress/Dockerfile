@@ -18,6 +18,7 @@ RUN apk add --no-cache \
     php-ctype \
     php-mbstring \
     php-gd
+    #php-pecl-redis
 
 RUN adduser -D -H -s /bin/false www-data -G www-data
 
