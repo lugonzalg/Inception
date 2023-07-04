@@ -21,6 +21,7 @@ services:
     networks:
       - inception
 
+    restart: always
     entrypoint: tmp/init.sh
 
   nginx:
@@ -38,6 +39,7 @@ services:
     depends_on:
       - wordpress
 
+    restart: always
     entrypoint: nginx -g "daemon off;"
 
   wordpress:
@@ -52,6 +54,7 @@ services:
         - MYSQL_USER
         - MYSQL_PASSWORD
         - MYSQL_DATABASE
+        - MYSQL_HOSTNAME
         - WORDPRESS_DOMAIN
 
     expose:
@@ -62,6 +65,7 @@ services:
       - mariadb
       - redis
 
+    restart: always
     entrypoint: ./init.sh
 
   redis:
