@@ -1,7 +1,7 @@
 services:
 
-  db:
-    container_name: db
+  mariadb:
+    container_name: mariadb
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
@@ -21,6 +21,7 @@ services:
     networks:
       - inception
 
+    restart: always
     entrypoint: tmp/init.sh
 
   nginx:
@@ -38,6 +39,7 @@ services:
     depends_on:
       - wordpress
 
+    restart: always
     entrypoint: nginx -g "daemon off;"
 
   wordpress:
@@ -52,6 +54,7 @@ services:
         - MYSQL_USER
         - MYSQL_PASSWORD
         - MYSQL_DATABASE
+        - MYSQL_HOSTNAME
         - WORDPRESS_DOMAIN
 
     expose:
@@ -59,8 +62,9 @@ services:
     networks:
       - inception
     depends_on:
-      - db
+      - mariadb
 
+    restart: always
     entrypoint: ./init.sh
 
 networks:
