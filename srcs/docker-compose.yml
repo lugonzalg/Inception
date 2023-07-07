@@ -56,6 +56,9 @@ services:
         - MYSQL_DATABASE
         - MYSQL_HOSTNAME
         - WORDPRESS_DOMAIN
+        - REDIS_HOST
+        - REDIS_PORT
+        - REDIS_PASSWORD
 
     expose:
       - 9000
@@ -76,12 +79,40 @@ services:
     volumes:
       - /home/lukas/data/redis:/data
 
-    networks:
-      - inception
+    environment:
+      - REDIS_PASSWORD
     expose:
       - 6379
+    networks:
+      - inception
 
-    entrypoint: redis-server
+    entrypoint: redis-server --requirepass ${REDIS_PASSWORD}
+
+  adminer:
+    container_name: adminer
+    build:
+      context: ./requirements/adminer
+      dockerfile: Dockerfile
+
+    ports:
+      - 8080:80
+    networks:
+      - inception
+
+  ftp:
+    container_name: ftp
+    build:
+      context: ./requirements/ftp
+      dockerfile: Dockerfile
+
+    expose:
+      - 20
+      - 21
+      - 990
+    networks:
+      - inception
+
+    entrypoint: tail -f
 
 networks:
         inception:
