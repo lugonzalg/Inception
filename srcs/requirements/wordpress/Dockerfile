@@ -4,6 +4,7 @@ RUN apk update
 
 RUN apk add --no-cache \
     php \
+    php-session \
     php-fpm \
     php-mysqli \
     php-json \

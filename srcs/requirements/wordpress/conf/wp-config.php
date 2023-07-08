@@ -2,7 +2,9 @@
 //SITE URL
 //define( 'WP_HOME', getenv('WORDPRESS_DOMAIN'));
 //define( 'WP_SITEURL', getenv('WORDPRESS_DOMAIN'));
-
+//
+define('FS_METHOD', 'ftpext');
+//
 //REDIS
 
 define('WP_REDIS_HOST', getenv("REDIS_HOST"));

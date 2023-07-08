@@ -94,10 +94,19 @@ services:
       context: ./requirements/adminer
       dockerfile: Dockerfile
 
+    volumes:
+        - /home/lukas/data/wordpress:/var/www/html
+
     ports:
       - 8080:80
     networks:
       - inception
+
+    depends_on:
+      - wordpress
+
+    restart: always
+    entrypoint: ./init.sh
 
   ftp:
     container_name: ftp
@@ -106,9 +115,7 @@ services:
       dockerfile: Dockerfile
 
     expose:
-      - 20
       - 21
-      - 990
     networks:
       - inception
 
