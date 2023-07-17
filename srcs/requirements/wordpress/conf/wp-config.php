@@ -3,7 +3,7 @@
 //define( 'WP_HOME', getenv('WORDPRESS_DOMAIN'));
 //define( 'WP_SITEURL', getenv('WORDPRESS_DOMAIN'));
 //
-define('FS_METHOD', 'ftpext');
+//define('FS_METHOD', 'ftpext');
 //
 //REDIS
 
