@@ -138,8 +138,10 @@ services:
       context: ./requirements/resume
       dockerfile: Dockerfile
 
+    volumes:
+      - /home/lukas/data/resume:/var/www
     expose:
-      - 80
+      - 3000
 
     networks:
       - inception

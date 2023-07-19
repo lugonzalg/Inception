@@ -2,21 +2,15 @@
 //SITE URL
 //define( 'WP_HOME', getenv('WORDPRESS_DOMAIN'));
 //define( 'WP_SITEURL', getenv('WORDPRESS_DOMAIN'));
-<<<<<<< HEAD
 
 //FTP
-define('FS_METHOD', 'ftpext');
-define('FTP_BASE', getenv('FTP_BASE'));
-define('FTP_USER', getenv('FTP_USER'));
-define('FTP_PASS', getenv('FTP_PASSWORD'));
-define('FTP_HOST', getenv('FTP_HOST'));
-define('FTP_SSL', false);
-
-=======
-//
 //define('FS_METHOD', 'ftpext');
->>>>>>> 12590992f2bb7fd091be711ce2c90cc940d08aed
-//
+//define('FTP_BASE', getenv('FTP_BASE'));
+//define('FTP_USER', getenv('FTP_USER'));
+//define('FTP_PASS', getenv('FTP_PASSWORD'));
+//define('FTP_HOST', getenv('FTP_HOST'));
+//define('FTP_SSL', false);
+
 //REDIS
 
 define('WP_REDIS_HOST', getenv("REDIS_HOST"));
