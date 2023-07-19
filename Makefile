@@ -7,6 +7,9 @@ RM=rm -rf
 all:
 	$(COMPOSE) up -d mariadb wordpress nginx
 
+bonus:
+	$(COMPOSE) up -d
+
 down:
 	$(COMPOSE) down
 

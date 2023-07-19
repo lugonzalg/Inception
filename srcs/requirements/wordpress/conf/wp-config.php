@@ -2,8 +2,15 @@
 //SITE URL
 //define( 'WP_HOME', getenv('WORDPRESS_DOMAIN'));
 //define( 'WP_SITEURL', getenv('WORDPRESS_DOMAIN'));
-//
+
+//FTP
 define('FS_METHOD', 'ftpext');
+define('FTP_BASE', getenv('FTP_BASE'));
+define('FTP_USER', getenv('FTP_USER'));
+define('FTP_PASS', getenv('FTP_PASSWORD'));
+define('FTP_HOST', getenv('FTP_HOST'));
+define('FTP_SSL', false);
+
 //
 //REDIS
 

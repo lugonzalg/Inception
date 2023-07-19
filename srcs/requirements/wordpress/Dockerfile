@@ -18,8 +18,8 @@ RUN apk add --no-cache \
     php-xmlreader \
     php-ctype \
     php-mbstring \
+    php-ftp \
     php-gd
-    #php-pecl-redis
 
 RUN adduser -D -H -s /bin/false www-data -G www-data
 

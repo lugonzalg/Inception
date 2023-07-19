@@ -59,6 +59,11 @@ services:
         - REDIS_HOST
         - REDIS_PORT
         - REDIS_PASSWORD
+        - FTP_HOST
+        - FTP_USER
+        - FTP_PASSWORD
+        - FTP_HOSTNAME
+        - FTP_BASE
 
     expose:
       - 9000
@@ -114,12 +119,21 @@ services:
       context: ./requirements/ftp
       dockerfile: Dockerfile
 
+    environment:
+        - FTP_USER
+        - FTP_PASSWORD
+
+    volumes:
+        - /home/lukas/data/wordpress:/var/www/html
+
     expose:
+      - 20
       - 21
+
     networks:
       - inception
 
-    entrypoint: tail -f
+    entrypoint: /tmp/init.sh
 
 networks:
         inception:
