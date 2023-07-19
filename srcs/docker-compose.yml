@@ -99,11 +99,8 @@ services:
       context: ./requirements/adminer
       dockerfile: Dockerfile
 
-    volumes:
-        - /home/lukas/data/wordpress:/var/www/html
-
-    ports:
-      - 8080:80
+    expose:
+      - 9000
     networks:
       - inception
 
@@ -111,7 +108,7 @@ services:
       - wordpress
 
     restart: always
-    entrypoint: ./init.sh
+    entrypoint: php-fpm81 --nodaemonize
 
   ftp:
     container_name: ftp
@@ -133,6 +130,19 @@ services:
     networks:
       - inception
 
+    entrypoint: /tmp/init.sh
+
+  resume:
+    container_name: resume
+    build:
+      context: ./requirements/resume
+      dockerfile: Dockerfile
+
+    expose:
+      - 80
+
+    networks:
+      - inception
     entrypoint: /tmp/init.sh
 
 networks:

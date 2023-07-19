@@ -5,7 +5,7 @@ RM=rm -rf
 .PHONY: all build clean down follow logs ps re rebuild restart
 
 all:
-	$(COMPOSE) up -d mariadb wordpress nginx
+	$(COMPOSE) up -d
 
 bonus:
 	$(COMPOSE) up -d
