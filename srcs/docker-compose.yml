@@ -13,6 +13,7 @@ services:
         - MYSQL_USER
         - MYSQL_PASSWORD
         - MYSQL_DATABASE
+        - RUBY_DATABASE
         - WORDPRESS_HOST
         - MYSQL_ROOT_PASSWORD
 
