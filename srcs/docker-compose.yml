@@ -6,7 +6,7 @@ services:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
     volumes:
-      - /home/lukas/data/mariadb:/var/lib/mysql
+      - v_mariadb:/var/lib/mysql
       - ./requirements/mariadb/log:/log/mariadb
 
     environment:
@@ -31,7 +31,7 @@ services:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     volumes:
-      - /home/lukas/data/wordpress:/var/www/html
+      - v_wordpress:/var/www/html
 
     ports:
       - 443:443
@@ -49,7 +49,7 @@ services:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     volumes:
-        - /home/lukas/data/wordpress:/var/www/html
+        - v_wordpress:/var/www/html
 
     environment:
         - MYSQL_USER
@@ -83,7 +83,7 @@ services:
       context: ./requirements/redis
       dockerfile: Dockerfile
     volumes:
-      - /home/lukas/data/redis:/data
+      - v_redis:/data
 
     environment:
       - REDIS_PASSWORD
@@ -92,6 +92,7 @@ services:
     networks:
       - inception
 
+    restart: always
     entrypoint: redis-server --requirepass ${REDIS_PASSWORD}
 
   adminer:
@@ -111,44 +112,52 @@ services:
     restart: always
     entrypoint: php-fpm81 --nodaemonize
 
-  ftp:
-    container_name: ftp
+  ruby:
+    container_name: ruby
     build:
-      context: ./requirements/ftp
-      dockerfile: Dockerfile
-
-    environment:
-        - FTP_USER
-        - FTP_PASSWORD
-
-    volumes:
-        - /home/lukas/data/wordpress:/var/www/html
-
-    expose:
-      - 20
-      - 21
-
-    networks:
-      - inception
-
-    entrypoint: /tmp/init.sh
-
-  resume:
-    container_name: resume
-    build:
-      context: ./requirements/resume
+      context: ./requirements/ruby
       dockerfile: Dockerfile
 
     volumes:
-      - /home/lukas/data/resume:/var/www
+      - v_ruby:/var/www
     expose:
       - 3000
 
     networks:
       - inception
+    restart: always
     entrypoint: /tmp/init.sh
 
 networks:
         inception:
                 name: inception
                 driver: bridge
+
+volumes:
+        v_mariadb:
+                driver: local
+                driver_opts:
+                        type: none
+                        o: bind
+                        device: /home/lugonzal/data/mariadb
+
+        v_wordpress:
+                driver: local
+                driver_opts:
+                        type: none
+                        o: bind
+                        device: /home/lugonzal/data/wordpress
+
+        v_redis:
+                driver: local
+                driver_opts:
+                        type: none
+                        o: bind
+                        device: /home/lugonzal/data/redis
+
+        v_ruby:
+                driver: local
+                driver_opts:
+                        type: none
+                        o: bind
+                        device: /home/lugonzal/data/ruby

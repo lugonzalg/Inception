@@ -1,4 +1,4 @@
-COMPOSE=docker compose -f srcs/docker-compose.yml
+COMPOSE=docker-compose -f srcs/docker-compose.yml
 MKDIR=mkdir -p
 RM=rm -rf
 
