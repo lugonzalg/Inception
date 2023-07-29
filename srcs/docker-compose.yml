@@ -13,6 +13,7 @@ services:
         - MYSQL_USER
         - MYSQL_PASSWORD
         - MYSQL_DATABASE
+        - RUBY_DATABASE
         - WORDPRESS_HOST
         - MYSQL_ROOT_PASSWORD
 
@@ -31,6 +32,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - /home/lukas/data/wordpress:/var/www/html
+      - /home/lukas/data/nextjs:/var/www/nextjs
 
     ports:
       - 443:443
@@ -38,6 +40,8 @@ services:
       - inception
     depends_on:
       - wordpress
+      - nextjs
+      - adminer
 
     restart: always
     entrypoint: nginx -g "daemon off;"
@@ -132,14 +136,18 @@ services:
 
     entrypoint: /tmp/init.sh
 
-  resume:
-    container_name: resume
+  nextjs:
+    container_name: nextjs
     build:
-      context: ./requirements/resume
+      context: ./requirements/nextjs
       dockerfile: Dockerfile
 
     volumes:
-      - /home/lukas/data/resume:/var/www
+      - /home/lukas/data/nextjs:/usr/src/app
+
+    environment:
+        - REACT_PROJECT
+
     expose:
       - 3000
 
