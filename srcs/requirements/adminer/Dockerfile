@@ -19,6 +19,7 @@ RUN apk add --no-cache \
     php-ctype \
     php-mbstring \
     php-gd \
+    php-pgsql \
     wget \
     && wget https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php \
     -O ./adminer.php

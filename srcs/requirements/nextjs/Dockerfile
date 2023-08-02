@@ -9,4 +9,4 @@ RUN \
 
 WORKDIR /usr/src/app
 
-COPY tools/init.sh /tmp
+COPY tools/docker-entrypoint.sh /tmp

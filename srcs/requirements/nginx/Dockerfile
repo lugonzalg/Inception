@@ -1,12 +1,10 @@
-FROM alpine:3.18.2
+FROM nginx:alpine
 
-RUN apk add nginx
+# Remove any existing config files
+RUN rm /etc/nginx/conf.d/*
 
-RUN mkdir -p /var/www
-RUN mkdir -p /var/www/html
-
-RUN adduser -D -H -s /bin/false www-data -G www-data
-
-COPY ./conf/nginx.conf /etc/nginx
-COPY ./conf/inception.crt /etc/nginx
-COPY ./conf/inception.key /etc/nginx
+# Copy config files
+# *.conf files in "conf.d/" dir get included in main config
+COPY conf/default.conf /etc/nginx/conf.d/
+COPY conf/nginx.crt /etc/nginx
+COPY conf/nginx.key /etc/nginx

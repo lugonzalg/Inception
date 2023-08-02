@@ -1,101 +1,22 @@
 services:
 
-  mariadb:
-    container_name: mariadb
-    build:
-      context: ./requirements/mariadb
-      dockerfile: Dockerfile
-    volumes:
-      - /home/lukas/data/mariadb:/var/lib/mysql
-      - ./requirements/mariadb/log:/log/mariadb
-
-    environment:
-        - MYSQL_USER
-        - MYSQL_PASSWORD
-        - MYSQL_DATABASE
-        - RUBY_DATABASE
-        - WORDPRESS_HOST
-        - MYSQL_ROOT_PASSWORD
-
-    expose:
-      - 3306
-    networks:
-      - inception
-
-    restart: always
-    entrypoint: tmp/init.sh
-
   nginx:
     container_name: nginx
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     volumes:
-      - /home/lukas/data/wordpress:/var/www/html
-      - /home/lukas/data/nextjs:/var/www/nextjs
+      - nextjs:/var/www/nextjs
 
     ports:
       - 443:443
     networks:
       - inception
     depends_on:
-      - wordpress
       - nextjs
-      - adminer
 
     restart: always
     entrypoint: nginx -g "daemon off;"
-
-  wordpress:
-    container_name: wordpress
-    build:
-      context: ./requirements/wordpress
-      dockerfile: Dockerfile
-    volumes:
-        - /home/lukas/data/wordpress:/var/www/html
-
-    environment:
-        - MYSQL_USER
-        - MYSQL_PASSWORD
-        - MYSQL_DATABASE
-        - MYSQL_HOSTNAME
-        - WORDPRESS_DOMAIN
-        - REDIS_HOST
-        - REDIS_PORT
-        - REDIS_PASSWORD
-        - FTP_HOST
-        - FTP_USER
-        - FTP_PASSWORD
-        - FTP_HOSTNAME
-        - FTP_BASE
-
-    expose:
-      - 9000
-    networks:
-      - inception
-    depends_on:
-      - mariadb
-      - redis
-
-    restart: always
-    entrypoint: ./init.sh
-
-  redis:
-    container_name: redis
-    build:
-      context: ./requirements/redis
-      dockerfile: Dockerfile
-    volumes:
-      - /home/lukas/data/redis:/data
-
-    environment:
-      - REDIS_PASSWORD
-    expose:
-      - 6379
-    networks:
-      - inception
-
-    entrypoint: redis-server --requirepass ${REDIS_PASSWORD}
 
   adminer:
     container_name: adminer
@@ -109,32 +30,10 @@ services:
       - inception
 
     depends_on:
-      - wordpress
+      - postgres
 
     restart: always
     entrypoint: php-fpm81 --nodaemonize
-
-  ftp:
-    container_name: ftp
-    build:
-      context: ./requirements/ftp
-      dockerfile: Dockerfile
-
-    environment:
-        - FTP_USER
-        - FTP_PASSWORD
-
-    volumes:
-        - /home/lukas/data/wordpress:/var/www/html
-
-    expose:
-      - 20
-      - 21
-
-    networks:
-      - inception
-
-    entrypoint: /tmp/init.sh
 
   nextjs:
     container_name: nextjs
@@ -143,19 +42,65 @@ services:
       dockerfile: Dockerfile
 
     volumes:
-      - /home/lukas/data/nextjs:/usr/src/app
+      - nextjs:/usr/src/app
 
     environment:
+        - NEXTJS_USER
+        - NEXTJS_PASS
+        - NEXTJS_HOST
+        - NEXTJS_DB
         - REACT_PROJECT
 
+    ports:
+      - 3000:3000
     expose:
-      - 3000
+    - 3000
 
     networks:
       - inception
-    entrypoint: /tmp/init.sh
+    depends_on:
+      - postgres
+    entrypoint: /tmp/docker-entrypoint.sh
+
+  postgres:
+    container_name: postgres
+    build:
+      context: ./requirements/postgres
+      dockerfile: Dockerfile
+
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+    environment:
+        - POSTGRES_USER
+        - POSTGRES_PASSWORD
+        - POSTGRES_DB
+        - NEXTJS_USER
+        - NEXTJS_PASS
+        - NEXTJS_DB
+
+    expose:
+    - 5432
+
+    networks:
+      - inception
 
 networks:
         inception:
                 name: inception
                 driver: bridge
+
+volumes:
+  postgres:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/data/postgres
+
+  nextjs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/data/nextjs
